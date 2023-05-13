@@ -1,0 +1,78 @@
+const http = require('http');
+const fs = require('fs');
+const ejs = require('ejs');
+const url = require('url');
+const net = require('net');
+
+const index = fs.readFileSync('./index.ejs','utf8');
+const sample = fs.readFileSync('./sample.ejs','utf8');
+const style_css =fs.readFileSync('./style.css','utf8');
+/*const socketPath = './tmp.sock'
+
+if (fs.existsSync(socketPath)) {
+	fs.unlinkSync(socketPath);
+}
+*/
+let server = http.createServer(getFromClient);
+server.listen(/*socketPath*/3000, () => {
+	console.log('Example app listening on socket', /*socketPath*/)
+});
+
+function getFromClient(req,res){
+        
+        let url_parts = url.parse(req.url,true);
+        
+        switch(url_parts.pathname){
+                
+
+                case '/':
+                        
+                        let query = url_parts.query;
+                        console.log(url_parts.query);
+                        if (query.code !=undefined){
+                              var message = mainServerConect(query.code)
+                        }else{let message ='You said nothing.'
+
+                        }
+
+                        let content = ejs.render(index,{
+													      title: 'title',
+                                message: message,
+                                        
+                        });
+
+                        res.writeHead(200, {'Content-Type':'text/html'});
+                        res.write(content);
+                        res.end();
+                        break;
+                
+                case '/style.css':
+                        res.writeHead(200, {'Content-Type':'text/css'});
+                        res.write(style_css);
+                        res.end();
+                        break;
+                default:
+                        res.writeHead(200, {'Content-Type':'text/plain'});
+                        res.end('no page...');
+                        break;
+        }
+}
+
+function mainServerConect(code){
+	const apiclient = net.createConnection('../unix.sock');
+	apiclient.on('connect', () => {
+		console.log('connected.');
+	});
+	apiclient.on('data', (data) => {
+	console.log(data.toString());
+	var output = data.toString();
+	});
+	apiclient.on('end', () => {
+	console.log('disconnected.')
+		console.log(output)
+	});
+	apiclient.on('error', (err) => {
+	console.error(err.message);
+	});
+	apiclient.write(JSON.stringify({number: code}));
+}

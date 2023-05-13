@@ -1,0 +1,25 @@
+html,
+body {
+  height: 90%;
+  width: auto;
+}
+
+body {
+  background-color: #303235;
+}
+.outbox {
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.inbox {
+  position: relative;
+  background: #a3a5a8;
+  min-width: 300px;
+  max-width: 80%;
+  text-align: center;
+  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  padding: 5px 30px 10px 30px;
+}

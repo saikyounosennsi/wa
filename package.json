@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "prettier": "^2.8.8"
+  },
+  "name": "wa",
+  "description": "wa",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "format": "format",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "./node_modules/.bin/prettier -w $(find|grep -e \"\\.js$\"|grep -v \"node_modules/\"|grep -v \".git/\")"
+  },
+  "author": "",
+  "license": "ISC"
+}
