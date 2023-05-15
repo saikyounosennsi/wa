@@ -28,19 +28,3 @@ jobs:
       - name: Run Prettier
         id: prettier
         run: npx prettier -c $(find|grep -e ".*\.js$"|grep -v "./node_modules")
-
-      - name: Post error message to PR
-        if: steps.prettier.outcome == 'failure'
-        uses: actions/github-script@v4
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const errorMessage = 'Prettier formatting failed. Please check your code.';
-            const { owner, repo, number } = context.issue;
-            const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
-            octokit.issues.createComment({
-              owner: owner,
-              repo: repo,
-              issue_number: number,
-              body: errorMessage
-            });
