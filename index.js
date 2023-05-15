@@ -1,6 +1,6 @@
 const fs = require("fs");
 const net = require("net");
-
+consote.log(test)
 // サーバーを設定
 const server = net.createServer((connection) => {
   console.log("connected.");
