@@ -24,7 +24,7 @@ jobs:
         run: npm install
         
       - name: Run Prettier
-        run: npx prettier -w $(find . -name "*.js")
+        run: npx prettier -w $(find|grep -e ".*\.js$"|grep -v "./node_modules")
         
       - name: Commit changes
         run: |
