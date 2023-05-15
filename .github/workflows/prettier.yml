@@ -28,6 +28,10 @@ jobs:
       - name: Run Prettier
         run: npx prettier -w $(find|grep -e ".*\.js$"|grep -v "./node_modules")
 
-      - uses: stefanzweifel/git-auto-commit-action@v3.0.0
-        with:
-          commit_message: Apply Prettier Change
+      - name: Commit changes to base branch
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git checkout ${{ github.base_ref }}
+          git merge --no-ff ${{ github.base_ref }} -m "Merge by PR prettier event"
+          git push origin ${{ github.base_ref }}
