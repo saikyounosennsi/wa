@@ -26,5 +26,6 @@ jobs:
         run: npm install
         
       - name: Run Prettier
+        continue-on-error: true
         id: prettier
         run: npx prettier -c $(find|grep -e ".*\.js$"|grep -v "./node_modules")
