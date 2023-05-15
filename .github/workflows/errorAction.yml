@@ -1,9 +1,7 @@
-name: ErrorAction
-
 on:
   workflow_run:
     workflows:
-    - PR Prettier
+      - PR prettier
     types: [ completed ]
 
 jobs:
@@ -11,5 +9,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: quipper/comment-failure-action@v0.1.1
-      with:
-      api-token: ${{ github.token }}
+        with:
+          api-token: ${{ github.token }}
