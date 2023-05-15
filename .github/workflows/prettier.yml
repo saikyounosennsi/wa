@@ -24,7 +24,7 @@ jobs:
         run: npm install
         
       - name: Run Prettier
-        run: npx prettier -w $(find . -name "*.js") --loglevel error
+        run: npx prettier -w $(find . -name "*.js")
         
       - name: Commit changes
         run: |
